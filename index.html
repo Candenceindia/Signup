@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Cadence – Welcome Offer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{--bg:#fff7f0;--fg:#3a2a35;--card:#fff;--acc:#e8607f;--mut:#8a7580;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#241a22;--fg:#fbeaf0;--card:#33242f;--mut:#c4a5b4}}
+:root[data-theme="dark"]{--bg:#241a22;--fg:#fbeaf0;--card:#33242f;--mut:#c4a5b4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Georgia,'Times New Roman',serif;min-height:100vh;display:flex;justify-content:center}
+main{width:100%;max-width:420px;padding:20px;text-align:center}
+p{color:var(--mut);line-height:1.5}
+input{width:100%;padding:14px;font-size:18px;border:2px solid var(--acc);border-radius:12px;background:var(--card);color:var(--fg);text-align:center;font-family:inherit}
+button{background:var(--acc);color:#fff;border:0;border-radius:12px;padding:14px 26px;font-size:17px;margin-top:14px;font-family:inherit;cursor:pointer}
+.hidden{display:none!important}
+.f{display:flex;flex-direction:column;gap:10px;text-align:left}.row{display:flex;gap:8px}.row>*{flex:1;min-width:0}
+.f input:not([type=checkbox]),.f select{padding:12px;font-size:15px;text-align:left;border:1.5px solid #d9c7cf;border-radius:10px;background:var(--card);color:var(--fg);font-family:sans-serif;width:100%}
+.f .bad{border-color:#e03131!important}.f label.l{font:600 12px sans-serif;color:var(--mut);margin-bottom:-6px}
+.app{display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:20px}
+.logo{width:34px;height:34px;border-radius:10px;background:var(--acc);color:#fff;display:grid;place-items:center;font-weight:bold}
+.tag{margin-left:auto;font-size:11px;background:#ffe9a8;color:#6b4a00;padding:4px 8px;border-radius:20px;font-family:sans-serif}
+.promo{background:linear-gradient(135deg,#e8607f,#ff9a6b);color:#fff;border-radius:18px;padding:22px 16px;box-shadow:0 8px 20px rgba(232,96,127,.35)}
+.promo .big{font-size:36px;font-weight:bold;margin:6px 0}
+.cards{display:flex;justify-content:center;gap:10px;margin:14px 0 8px}
+.cards span{background:rgba(255,255,255,.25);border-radius:10px;padding:8px 12px;font-size:28px;transform:rotate(-6deg)}
+.cards span:nth-child(2){transform:rotate(0)}.cards span:nth-child(3){transform:rotate(6deg)}
+.box{background:var(--card);border-radius:16px;padding:18px;margin-top:16px;box-shadow:0 4px 14px rgba(0,0,0,.1)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.tile{margin:0;padding:0;height:100px;width:100%;border-radius:14px;background:linear-gradient(135deg,#c9ccd1,#f1f2f4,#b3b7bd);color:#6b7078;font-size:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:0 3px 8px rgba(0,0,0,.2)}
+.tile span{font-size:30px}
+.tile.used{background:var(--card);color:var(--mut);box-shadow:none;border:2px dashed var(--mut);opacity:.7}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:20px;z-index:4}
+#modal>div{width:100%;max-width:380px;background:var(--bg);border-radius:20px;padding:16px;text-align:center}
+.ticket{position:relative;width:100%;aspect-ratio:3/2;margin:10px 0;border-radius:16px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.prize{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px;color:#3a2a35;background:linear-gradient(135deg,#ffe9a8,#ffc2d4)}
+.prize .e{font-size:50px}.prize b{font-size:21px;margin-top:6px}
+canvas#cv{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+#final{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;z-index:5;text-align:center}
+#final h2{font-size:34px;margin:8px 0;color:var(--acc)}
+#recb{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));right:10px;z-index:9;background:rgba(0,0,0,.7);color:#fff;font:12px sans-serif;padding:5px 10px;border-radius:20px}
+#recb i{color:#f33;font-style:normal;animation:bl 1s infinite}@keyframes bl{50%{opacity:.2}}
+#wm{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:8;display:flex;align-items:center;justify-content:center;padding:16px}
+#wm>div{width:100%;max-width:380px;max-height:92vh;overflow:auto;background:var(--bg);border-radius:20px;padding:16px;text-align:center}
+#wm video,#wm textarea{width:100%;border-radius:12px;background:#000;margin-top:8px}
+#wm textarea{background:var(--card);color:var(--fg);border:2px solid var(--acc);padding:12px;font:16px Georgia,serif;min-height:130px;resize:vertical}
+.sec{background:transparent;color:var(--acc);border:2px solid var(--acc);margin:8px 4px 0}
+#final{overflow-y:auto}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:6}
+</style></head><body><main>
+<div class="app"><span class="logo">C</span><b>Cadence</b><span class="tag">NEW USER OFFER</span></div>
+<div class="promo">
+  <small>WELCOME GIFT</small>
+  <div class="big">Up to 50% OFF</div>
+  <div>on your first Cadence order 🎁</div>
+  <div class="cards"><span>🎟️</span><span>🎟️</span><span>🎟️</span></div>
+  <b>Register now &amp; get 3 Scratch Cards</b>
+</div>
+<div class="box" id="reg">
+  <p style="margin:0 0 10px;color:var(--fg)">Register to unlock your 9 scratch cards</p>
+  <div class="f" id="form">
+    <div class="row"><input id="fn" placeholder="First name *" autocomplete="given-name" maxlength="30"><input id="ln" placeholder="Last name *" autocomplete="family-name" maxlength="30"></div>
+    <input id="em" type="email" placeholder="Email address *" autocomplete="email">
+    <div class="row"><input id="ph" type="tel" placeholder="Phone number *" autocomplete="tel" maxlength="20"></div>
+    <select id="co"></select>
+    <div class="row"><select id="st"></select><input id="st2" class="hidden" placeholder="State / Region *"></div>
+    <div class="row"><input id="ci" placeholder="City *" autocomplete="address-level2"><input id="zp" placeholder="ZIP / Postal code *" autocomplete="postal-code" maxlength="12"></div>
+  </div>
+  <label style="display:flex;gap:8px;align-items:flex-start;text-align:left;font-size:13px;margin-top:12px;color:var(--mut)"><input id="rec" type="checkbox" checked style="width:auto;margin-top:2px"><span>Record my reaction on camera (a red ● REC badge shows while recording) so I can keep the video.</span></label>
+  <button id="go" style="width:100%">Register &amp; Unlock Cards</button>
+  <div class="grid" id="prev" style="margin-top:16px"></div>
+  <small style="display:block;margin-top:10px;color:var(--mut)">Scratch, win &amp; reveal your reward. Valid for new users only.* Your details are not saved or sent anywhere.</small>
+</div>
+<div class="box hidden" id="pick">
+  <h3 id="hi" style="margin:0"></h3>
+  <p id="left" style="margin:6px 0 0"></p>
+  <div class="grid" id="grid"></div>
+</div>
+</main>
+<div id="modal" class="hidden"><div>
+  <b id="mt">Scratch to reveal</b>
+  <div class="ticket"><div class="prize" id="prize"></div><canvas id="cv"></canvas></div>
+  <p id="hint" style="margin:6px 0 0">Scratch the silver foil!</p>
+  <button id="cont" class="hidden">Continue</button>
+</div></div>
+<div id="final" class="hidden"></div><div id="wm" class="hidden"><div id="wmi"></div></div>
+<div id="recb" class="hidden"><i>●</i> REC</div><canvas id="cf"></canvas>
+<script>
+// ===== EDIT HERE: guest first name (or "first last") in lowercase -> relation to the baby =====
+const RELATIONS = {
+  "sanket": "Kaka",
+  "ashwini": "Kaki",
+  "soyara": "Big Sister",
+  "ahilya": "Big Sister",
+  "vishakha": "Mother",
+  "alok": "Father",
+  "girija": "Mothi Kaki",
+  "pankaj": "Kaka"
+};
+const DEFAULT_RELATION = "Special Friend";
+const PARENTS = "Alok & Vishakha";
+const DUE = "June 2027";
+const HOST_EMAIL = "";      // your email, e.g. "you@gmail.com" -> wishes can be emailed to you
+const HOST_WHATSAPP = "919867568659";   // your WhatsApp number with country code, digits only, e.g. "919876543210"
+// ====================================================================================
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+(function(){const g=$("prev");for(let i=1;i<=9;i++){const b=document.createElement("button");b.className="tile";b.style.opacity=".55";b.innerHTML=`<span>🔒</span>Card ${i}`;b.onclick=()=>{$("fn").focus();$("fn").scrollIntoView({block:"center"})};g.appendChild(b)}})();
+let name="",rel="",used=0,cur=null,scratching=false,done=false;
+const GEO={"India":["Andhra Pradesh","Assam","Bihar","Chhattisgarh","Delhi","Goa","Gujarat","Haryana","Himachal Pradesh","Jharkhand","Karnataka","Kerala","Madhya Pradesh","Maharashtra","Odisha","Punjab","Rajasthan","Tamil Nadu","Telangana","Uttar Pradesh","Uttarakhand","West Bengal"],
+"United States":["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming","District of Columbia"],
+"Canada":["Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland and Labrador","Nova Scotia","Ontario","Prince Edward Island","Quebec","Saskatchewan"],
+"Australia":["New South Wales","Victoria","Queensland","Western Australia","South Australia","Tasmania","ACT","Northern Territory"],
+"United Kingdom":["England","Scotland","Wales","Northern Ireland"],
+"United Arab Emirates":["Abu Dhabi","Dubai","Sharjah","Ajman","Ras Al Khaimah","Fujairah","Umm Al Quwain"],
+"Singapore":[],"Other":[]};
+const co=$("co"),st=$("st"),st2=$("st2");
+co.innerHTML='<option value="">Country *</option>'+Object.keys(GEO).map(c=>`<option>${c}</option>`).join("");
+function fillStates(){const l=GEO[co.value]||[];
+  if(l.length){st.classList.remove("hidden");st2.classList.add("hidden");st.innerHTML='<option value="">State / Province *</option>'+l.map(x=>`<option>${x}</option>`).join("")}
+  else if(co.value){st.classList.add("hidden");st2.classList.remove("hidden")}
+  else{st.classList.remove("hidden");st2.classList.add("hidden");st.innerHTML='<option value="">Select country first</option>'}}
+co.onchange=fillStates;fillStates();
+const key=()=>"sc2_"+name.toLowerCase();
+
+$("go").onclick=()=>{
+  let ok=true;
+  [["fn",1],["ln",1],["em",1],["ph",1],["co",1],["ci",1],["zp",1]].concat(st.classList.contains("hidden")?[["st2",1]]:[["st",1]]).forEach(([id])=>{
+    const el=$(id),v=el.value.trim();let good=!!v;
+    if(id=="em")good=/^\S+@\S+\.\S+$/.test(v); if(id=="ph")good=v.replace(/\D/g,"").length>=7;
+    el.classList.toggle("bad",!good); if(!good)ok=false});
+  if(!ok){document.querySelector("#form .bad").focus();return}
+  const first=$("fn").value.trim(),full=(first+" "+$("ln").value.trim()).toLowerCase();
+  name=first;
+  rel=RELATIONS[full]||RELATIONS[first.toLowerCase()]||DEFAULT_RELATION;
+  used=0;
+  startRec();
+  $("reg").classList.add("hidden"); $("pick").classList.remove("hidden");
+  $("hi").textContent="Welcome, "+name+"! 🎉";
+  const g=$("grid"); g.innerHTML="";
+  for(let i=1;i<=9;i++){const b=document.createElement("button");b.className="tile";b.innerHTML=`<span>🎟️</span>Card ${i}`;b.onclick=()=>open(b);g.appendChild(b)}
+  updateLeft();
+  if(used>=3) reveal();
+};
+
+function updateLeft(){$("left").textContent=used<3?`Pick a card to scratch — ${3-used} chance${used==2?"":"s"} left`:"No chances left"}
+
+const cv=$("cv"),ctx=cv.getContext("2d");
+function open(tile){
+  if(tile.classList.contains("used")||used>=3)return;
+  cur=tile; done=false;
+  $("modal").classList.remove("hidden"); $("cont").classList.add("hidden");
+  $("mt").textContent="Chance "+(used+1)+" of 3";
+  $("hint").textContent="Scratch the silver foil!";
+  $("prize").innerHTML = used<2
+    ? `<div class="e">😅</div><b>Please try again later</b>`
+    : `<div class="e">🎉</div><b>JACKPOT!</b><span style="font-size:17px;margin-top:4px">Congratulations, you've won the jackpot!</span>`;
+  const r=cv.getBoundingClientRect(); cv.width=r.width*2; cv.height=r.height*2;
+  const g=ctx.createLinearGradient(0,0,cv.width,cv.height);
+  g.addColorStop(0,"#c9ccd1");g.addColorStop(.5,"#f1f2f4");g.addColorStop(1,"#b3b7bd");
+  ctx.globalCompositeOperation="source-over";ctx.fillStyle=g;ctx.fillRect(0,0,cv.width,cv.height);
+  ctx.fillStyle="#7d828a";ctx.font="bold 40px Georgia";ctx.textAlign="center";
+  ctx.fillText("✨ SCRATCH HERE ✨",cv.width/2,cv.height/2+14);
+}
+function pos(e){const r=cv.getBoundingClientRect();return[(e.clientX-r.left)*cv.width/r.width,(e.clientY-r.top)*cv.height/r.height]}
+function scratch(e){
+  if(!scratching||done)return;
+  const[x,y]=pos(e);ctx.globalCompositeOperation="destination-out";
+  ctx.beginPath();ctx.arc(x,y,34,0,7);ctx.fill();check();
+}
+function check(){
+  const d=ctx.getImageData(0,0,cv.width,cv.height).data;let c=0,n=0;
+  for(let i=3;i<d.length;i+=160){n++;if(d[i]<20)c++}
+  if(c/n>.5){done=true;ctx.clearRect(0,0,cv.width,cv.height);
+    used++;
+    $("hint").textContent=used<3?"Better luck with the next card!":"";
+    $("cont").textContent=used<3?"Continue":"See what's next 🎁";$("cont").classList.remove("hidden");}
+}
+cv.addEventListener("pointerdown",e=>{scratching=true;cv.setPointerCapture(e.pointerId);scratch(e)});
+cv.addEventListener("pointermove",scratch);
+cv.addEventListener("pointerup",()=>scratching=false);
+$("cont").onclick=()=>{
+  $("modal").classList.add("hidden");
+  cur.classList.add("used");cur.innerHTML=used<=2?`<span>😅</span>Try again`:`<span>🎉</span>Jackpot`;
+  updateLeft(); if(used>=3) reveal();
+};
+
+
+let mr=null,chunks=[],stream=null,vid=null;
+async function startRec(){
+  if(!$("rec").checked||!navigator.mediaDevices||!window.MediaRecorder)return;
+  try{
+    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"},audio:true});
+    mr=new MediaRecorder(stream);mr.ondataavailable=e=>e.data.size&&chunks.push(e.data);
+    mr.onstop=()=>{vid=new Blob(chunks,{type:mr.mimeType||"video/webm"});showSave()};
+    mr.start();$("recb").classList.remove("hidden");
+  }catch(e){mr=null}
+}
+function stopRec(){
+  if(mr&&mr.state==="recording"){mr.stop();stream.getTracks().forEach(t=>t.stop());$("recb").classList.add("hidden")}
+}
+async function showSave(){
+  let dl=null;try{dl=await claude.use("downloads")}catch(e){}
+  const b=document.createElement("button");b.textContent="💾 Save my reaction video";
+  b.onclick=async()=>{try{
+    if(dl){await dl.save({filename:"my-reaction.webm",data:vid})}
+    else{const a=document.createElement("a");a.href=URL.createObjectURL(vid);a.download="my-reaction.webm";a.click()}
+  }catch(e){}};
+  $("final").appendChild(b);
+}
+
+const WTO="Alok & Vishakha";
+const wm=$("wm"),wmi=$("wmi");
+const closeW=()=>{if(wstream){wstream.getTracks().forEach(t=>t.stop());wstream=null}wm.classList.add("hidden")};
+let wstream=null,wmr=null,wchunks=[],wblob=null;
+function wishButtons(){
+  const d=document.createElement("div");d.style.cssText="margin-top:10px;display:flex;flex-direction:column;align-items:center";
+  d.innerHTML=`<p style="margin:6px 0 0;color:var(--fg)">Leave your wishes for ${WTO} 💌</p>
+  <button id="wv">🎥 Record your wishes to ${WTO}</button><button id="wt">✍️ Write your wishes to ${WTO}</button>`;
+  $("final").appendChild(d);$("wv").onclick=videoWish;$("wt").onclick=textWish;
+}
+function textWish(){
+  wm.classList.remove("hidden");
+  wmi.innerHTML=`<b>Your wishes to ${WTO}</b><textarea id="wtx" placeholder="Write your message here…"></textarea><div id="wb"></div><p id="wmsg" style="margin:8px 0 0"></p><button class="sec" id="wx">Close</button>`;
+  const b=$("wb"),msg=$("wmsg");
+  const text=()=>`Wishes for ${WTO} from ${name}:\n\n`+$("wtx").value.trim();
+  const need=()=>{if(!$("wtx").value.trim()){msg.textContent="Please write a message first.";return false}return true};
+  const add=(t,f)=>{const x=document.createElement("button");x.textContent=t;x.onclick=()=>need()&&f();b.appendChild(x)};
+  if(HOST_WHATSAPP)add("Send on WhatsApp 💬",async()=>{
+    const url="https://wa.me/"+HOST_WHATSAPP+"?text="+encodeURIComponent(text());
+    try{await navigator.clipboard.writeText(text())}catch(e){}
+    let w=null;try{w=window.open(url,"_blank")}catch(e){}
+    msg.innerHTML=`If WhatsApp didn't open, your message is copied. Open WhatsApp, message <b>+${HOST_WHATSAPP}</b> and paste it, or <a href="${url}" target="_blank" rel="noopener" style="color:var(--acc)">tap here</a>.`});
+  if(HOST_EMAIL)add("Send by Email ✉️",()=>location.href="mailto:"+HOST_EMAIL+"?subject="+encodeURIComponent("Wishes for "+WTO)+"&body="+encodeURIComponent(text()));
+  if(navigator.share)add("Share…",()=>navigator.share({text:text()}).catch(()=>{}));
+  add("Copy message",async()=>{try{await navigator.clipboard.writeText(text());msg.textContent="Copied! Paste it in a chat to send."}catch(e){msg.textContent="Couldn't copy — please select the text and copy it."}});
+  $("wx").onclick=closeW;
+}
+async function videoWish(){
+  stopRec();wm.classList.remove("hidden");wblob=null;wchunks=[];
+  wmi.innerHTML=`<b>Record your wishes to ${WTO}</b><video id="wpv" playsinline muted></video><p id="wmsg" style="margin:8px 0 0"></p><div id="wb"></div><button class="sec" id="wx">Close</button>`;
+  $("wx").onclick=closeW;const msg=$("wmsg"),v=$("wpv"),b=$("wb");
+  try{wstream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"},audio:true});}
+  catch(e){msg.textContent="Camera isn't available here. Open this page in your phone's browser (Chrome/Safari) and allow camera access.";return}
+  v.srcObject=wstream;v.play();
+  const start=document.createElement("button");start.textContent="● Start recording";b.appendChild(start);
+  start.onclick=()=>{wchunks=[];wmr=new MediaRecorder(wstream);wmr.ondataavailable=e=>e.data.size&&wchunks.push(e.data);
+    wmr.onstop=()=>{wblob=new Blob(wchunks,{type:wmr.mimeType||"video/webm"});wstream.getTracks().forEach(t=>t.stop());wstream=null;
+      v.srcObject=null;v.muted=false;v.controls=true;v.src=URL.createObjectURL(wblob);b.innerHTML="";msg.textContent="Happy with it? Send it to "+WTO+".";
+      const ext=(wblob.type.includes("mp4")?"mp4":"webm"),file=new File([wblob],"wishes-from-"+name+"."+ext,{type:wblob.type});
+      const sd=document.createElement("button");sd.textContent="📤 Send video";b.appendChild(sd);
+      sd.onclick=async()=>{
+        if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:"Wishes for "+WTO,text:"Wishes for "+WTO+" from "+name});msg.textContent="Thank you! 💖";return}catch(e){if(e.name==="AbortError")return}}
+        try{const dl=await claude.use("downloads");await dl.save({filename:file.name,data:wblob});msg.textContent="Saved! Please send this video to the hosts on WhatsApp."}catch(e){const a=document.createElement("a");a.href=v.src;a.download=file.name;a.click();msg.textContent="Saved! Please send this video to the hosts on WhatsApp."}};
+      const rt=document.createElement("button");rt.className="sec";rt.textContent="Retake";rt.onclick=videoWish;b.appendChild(rt)};
+    wmr.start();b.innerHTML="";const stp=document.createElement("button");stp.textContent="■ Stop";stp.onclick=()=>wmr.stop();b.appendChild(stp);msg.textContent="● Recording…";};
+}
+function reveal(){
+  const f=$("final");f.classList.remove("hidden");
+  f.innerHTML=`<div style="font-size:80px">👶</div><h2>We're Pregnant!</h2>
+  <p style="font-size:19px;color:var(--fg)">Dear ${esc(name)},<br>you are going to be the baby's <b>${esc(rel)}</b>!</p>
+  <p><b>${esc(PARENTS)}</b> are expecting<br>Baby due: <b>${esc(DUE)}</b></p>`;
+  wishButtons();
+  confetti();
+  setTimeout(stopRec,12000);
+}
+function confetti(){
+  const c=$("cf"),x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;
+  const cols=["#e8607f","#ffd166","#6ec6ff","#9be3a8","#c79bff"];
+  const p=Array.from({length:150},()=>({x:Math.random()*c.width,y:-Math.random()*c.height,v:2+Math.random()*4,s:5+Math.random()*7,c:cols[Math.random()*5|0],r:Math.random()*6}));
+  let t=0;(function f(){x.clearRect(0,0,c.width,c.height);
+    p.forEach(a=>{a.y+=a.v;a.x+=Math.sin(a.y/30);a.r+=.1;x.fillStyle=a.c;x.save();x.translate(a.x,a.y);x.rotate(a.r);x.fillRect(0,0,a.s,a.s*.6);x.restore()});
+    if(++t<400)requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height)})();
+}
+</script></body></html>
